@@ -1,0 +1,48 @@
+name: Assemble DataPEA Project
+
+on:
+  push:
+    paths:
+      - '.upload/xz_parts/**'
+
+permissions:
+  contents: write
+
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Assemble source bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          expected=13
+          count=$(find .upload/xz_parts -maxdepth 1 -type f -name 'part_*' 2>/dev/null | wc -l)
+          if [ "$count" -ne "$expected" ]; then
+            echo "Waiting for all $expected parts; have $count"
+            exit 0
+          fi
+
+          cat .upload/xz_parts/part_* > /tmp/datapea.tar.xz.b64
+          base64 -d /tmp/datapea.tar.xz.b64 > /tmp/datapea.tar.xz
+
+          echo "342795a9eb9dca785644a89223365eee669f70fd0d64dcd020a0e09b29b45d80  /tmp/datapea.tar.xz" | sha256sum -c -
+
+          tar -xJf /tmp/datapea.tar.xz
+
+          echo "6ec2f11a656de97e860165df12ad5e346c9e1dee0b04c03301e4cacf024a9ecc  Graphplot_webserv_v4_4_5.py" | sha256sum -c -
+          echo "429adf25b6a932caa77b42bd95d63b1064edbc093bd77b19536d49b887d0c2b6  launcher_helper.py" | sha256sum -c -
+          echo "2245c38c0a3702cd7e35de0aedd23f9e5f8d05d7258a6aa12a165e0687aa5c1e  VERSION_HISTORY.md" | sha256sum -c -
+
+          rm -rf .upload/xz_parts
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add Graphplot_webserv_v4_4_5.py launcher_helper.py VERSION_HISTORY.md
+          git add -A .upload/xz_parts
+          git commit -m "Add complete Python-DataPEA V4.4.5 source"
+          git push
