@@ -1,0 +1,9 @@
+fastapi>=0.100
+uvicorn>=0.20
+python-multipart>=0.0.6
+pandas>=1.5
+numpy>=1.23
+matplotlib>=3.6
+plotly>=5.18
+python-docx>=0.8.11
+Pillow
