@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# GraphPlot runtime
+GraphPlot_launcher.log
+*.log
+
+# Engineering/test data: keep local unless intentionally reviewed for publication
+*.csv
+
+# Generated reports / exports
+*.pdf
+*.docx
+
+# Temporary / backup files
+*.tmp
+*.bak
+*~
