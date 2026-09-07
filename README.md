@@ -17,7 +17,7 @@
   <a href="http://127.0.0.1:8800"><img alt="LAN Port" src="https://img.shields.io/badge/WEB_PORT-8800-7B61FF?style=flat-square"></a>
   <img alt="Status" src="https://img.shields.io/badge/STATUS-ACTIVE-2EA043?style=flat-square">
   <img alt="Cloud" src="https://img.shields.io/badge/CLOUD-NOT_REQUIRED-555?style=flat-square">
-  <img alt="License" src="https://img.shields.io/badge/LICENSE-NOT_DECLARED-lightgrey?style=flat-square">
+  <a href="./LICENSE"><img alt="License" src="https://img.shields.io/badge/LICENSE-MIT-2EA043?style=flat-square"></a>
 </p>
 
 <p align="center">
@@ -421,6 +421,7 @@ Python-DataPEA/
 ├── lib_install.bat                    # Library installer
 ├── requirements.txt                   # Python dependencies
 ├── README.md                          # Project documentation
+├── LICENSE                            # MIT License
 ├── VERSION_HISTORY.md                 # Detailed version history
 ├── PRESET_FORMAT_V1.md                # Preset specification
 ├── VALIDATION_V4_4_5.txt              # Baseline validation
@@ -536,12 +537,13 @@ Project development: **DET DQT EVSBG / Patiphan.Phak**
 
 ## ⚖️ License
 
-A public software license has **not yet been declared** for Python-DataPEA.
+Python-DataPEA is released under the **MIT License**.
 
-โปรเจกต์ Python-DataPEA **ยังไม่ได้ประกาศ Public Software License** ใน Repository นี้
+You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, subject to the terms of the license.
 
-> [!IMPORTANT]
-> Before redistribution or accepting external contributions, add an appropriate `LICENSE` file and verify that all included code, names, data examples and assets are approved for public distribution.
+Python-DataPEA เผยแพร่ภายใต้ **MIT License** ซึ่งอนุญาตให้นำซอฟต์แวร์ไปใช้ คัดลอก แก้ไข รวม เผยแพร่ แจกจ่าย หรือพัฒนาต่อยอดได้ ภายใต้เงื่อนไขของ License
+
+📄 **[Read the full MIT License](./LICENSE)**
 
 ---
 
