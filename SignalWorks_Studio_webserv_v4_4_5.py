@@ -4901,7 +4901,7 @@ window.addEventListener('pagehide', () => { saveSidebarUiState(); releaseServerC
 def render_page(state: BrowserSession, active_tab: int) -> str:
     active_tab = max(0, min(active_tab, len(TAB_PRESETS) - 1))
     has_data = state.df is not None
-    export_base = re.sub(r"[^A-Za-z0-9_-]+", "_", os.path.splitext(state.filename or "SignalWorksStudio")[0]).strip("_") or "GraphPlot"
+    export_base = re.sub(r"[^A-Za-z0-9_-]+", "_", os.path.splitext(state.filename or "SignalWorksStudio")[0]).strip("_") or "SignalWorksStudio"
     export_tab_options = "".join(
         f'<label class="export-tab-option"><input type="checkbox" value="{idx}" checked><span><strong>Page {idx + 1}</strong><small>{esc(preset.title)}</small></span></label>'
         for idx, preset in enumerate(TAB_PRESETS)
