@@ -499,7 +499,7 @@ SignalWorks Studio เป็น Web Application ที่ต้องมี Pyth
 |---|---|
 | [🌐 Open SignalWorks Studio Local](http://127.0.0.1:8800) | Opens SignalWorks Studio running on the same PC |
 | `http://<SERVER-IP>:8800` | Opens a SignalWorks Studio server on your LAN |
-| [📦 GitHub Repository](https://github.com/TOPTUBBY/Python-DataPEA) | Source code and documentation |
+| [📦 GitHub Repository](https://github.com/TOPTUBBY/Python-SignalWorks-Studio) | Source code and documentation |
 
 If a public Internet demo is added in the future, the **OPEN SignalWorks Studio** badge can be changed to that public URL without changing the application itself.
 
