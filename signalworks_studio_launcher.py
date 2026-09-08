@@ -414,7 +414,7 @@ def get_process_info(pid: int) -> dict[str, Any]:
     return {"pid": int(pid), "name": "", "executable": "", "command_line": ""}
 
 
-def extract_graphplot_version(command_line: str) -> str:
+def extract_signalworks_version(command_line: str) -> str:
     m = re.search(r"(?:signalworks[^\s\"]*web(?:serv)?|graphplot[^\s\"]*web(?:serv)?)[_-]?(v4(?:[_\.]\d+)+)\.py", command_line, flags=re.I)
     if not m:
         m = re.search(r"(v4(?:[_\.]\d+)+)", command_line, flags=re.I)
@@ -423,7 +423,7 @@ def extract_graphplot_version(command_line: str) -> str:
     return m.group(1).replace("_", ".").upper()
 
 
-def is_graphplot_server_process(info: dict[str, Any]) -> bool:
+def is_signalworks_server_process(info: dict[str, Any]) -> bool:
     cmd = str(info.get("command_line") or "").lower()
     if not cmd:
         return False
@@ -443,7 +443,7 @@ def process_summary(info: dict[str, Any]) -> str:
     pid = int(info.get("pid") or 0)
     name = str(info.get("name") or "unknown")
     cmd = str(info.get("command_line") or "").strip()
-    ver = extract_graphplot_version(cmd) if cmd else "unknown"
+    ver = extract_signalworks_version(cmd) if cmd else "unknown"
     if len(cmd) > 220:
         cmd = cmd[:217] + "..."
     lines = [f"PID {pid} | {name} | {ver}"]
@@ -521,8 +521,8 @@ def stop_recognized_listener_processes(port: int, hidden: bool = False, ask: boo
         )
         return False
 
-    recognized = [info for info in infos if is_graphplot_server_process(info)]
-    unknown = [info for info in infos if not is_graphplot_server_process(info)]
+    recognized = [info for info in infos if is_signalworks_server_process(info)]
+    unknown = [info for info in infos if not is_signalworks_server_process(info)]
 
     if unknown:
         details = "\n\n".join(process_summary(info) for info in infos)
@@ -653,7 +653,7 @@ def inspect_port(port: int) -> int:
     if infos:
         print("\nListening process(es):")
         for info in infos:
-            kind = "SignalWorks Studio" if is_graphplot_server_process(info) else "UNKNOWN / protected"
+            kind = "SignalWorks Studio" if is_signalworks_server_process(info) else "UNKNOWN / protected"
             print(f"\n[{kind}]\n{process_summary(info)}")
     elif port_is_open(port):
         print("\nThe port is open, but process ownership could not be resolved.")
