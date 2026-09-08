@@ -4959,7 +4959,7 @@ def render_page(state: BrowserSession, active_tab: int) -> str:
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{esc(APP_TITLE)} {esc(APP_VERSION)}</title>
+    <title>{esc(APP_TITLE)} — {esc(APP_TAGLINE)}</title>
     <script>
     (() => {{
         const key='signalworks_studio_theme_mode';
