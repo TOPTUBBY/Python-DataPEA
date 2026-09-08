@@ -1,12 +1,12 @@
-# 📊 Python-DataPEA
+# 📡 SignalWorks Studio
 
 <p align="center">
-  <strong>Engineering CSV Plotting · Evaluation · Analysis</strong><br>
-  <strong>เครื่องมือวิเคราะห์และพล็อตข้อมูล CSV สำหรับงาน Engineering / Test / Validation</strong>
+  <strong>Engineering Data Visualization · Evaluation · Analysis · Reporting</strong><br>
+  <strong>เครื่องมือพล็อต ประเมิน วิเคราะห์ และจัดทำรายงานข้อมูล Engineering ผ่าน Web Browser</strong>
 </p>
 
 <p align="center">
-  <a href="http://127.0.0.1:8800"><img alt="Open DataPEA" src="https://img.shields.io/badge/🌐_OPEN-DataPEA-0A7EA4?style=for-the-badge"></a>
+  <a href="http://127.0.0.1:8800"><img alt="Open SignalWorks Studio" src="https://img.shields.io/badge/🌐_OPEN-SignalWorks_Studio-0A7EA4?style=for-the-badge"></a>
   <a href="https://www.python.org/"><img alt="Python" src="https://img.shields.io/badge/PYTHON-3.x-3776AB?style=for-the-badge&logo=python&logoColor=white"></a>
   <a href="https://fastapi.tiangolo.com/"><img alt="FastAPI" src="https://img.shields.io/badge/FRAMEWORK-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white"></a>
   <a href="https://plotly.com/python/"><img alt="Plotly" src="https://img.shields.io/badge/PLOT-Plotly-3F4F75?style=for-the-badge&logo=plotly&logoColor=white"></a>
@@ -31,25 +31,33 @@
 ---
 
 > [!TIP]
-> **🌐 The “OPEN DataPEA” badge is a real link to the Web UI at `http://127.0.0.1:8800`.**  
-> It works after DataPEA has been started on the **same PC**. For another PC on the LAN, use `http://<SERVER-IP>:8800`.
+> **🌐 The “OPEN SignalWorks Studio” badge is a real link to the Web UI at `http://127.0.0.1:8800`.**  
+> It works after SignalWorks Studio has been started on the **same PC**. For another PC on the LAN, use `http://<SERVER-IP>:8800`.
 >
-> **ปุ่ม “OPEN DataPEA” ด้านบนลิงก์ไปยัง Web UI จริงที่ `http://127.0.0.1:8800`**  
-> โดยต้องเปิด DataPEA Server บนเครื่องนั้นก่อน ส่วนเครื่องอื่นใน LAN ให้ใช้ `http://<SERVER-IP>:8800`
+> **ปุ่ม “OPEN SignalWorks Studio” ด้านบนลิงก์ไปยัง Web UI จริงที่ `http://127.0.0.1:8800`**  
+> โดยต้องเปิด SignalWorks Studio Server บนเครื่องนั้นก่อน ส่วนเครื่องอื่นใน LAN ให้ใช้ `http://<SERVER-IP>:8800`
+
+---
+
+## 🔄 Branding / การเปลี่ยนชื่อ
+
+The project is now branded **SignalWorks Studio**. The analysis engine remains on the validated **V4.4.5.2026** baseline. Existing legacy `GraphPlotSignalPreset` / `CSVDataPlotterPreset` V1 files remain import-compatible.
+
+โปรเจกต์เปลี่ยนชื่อและ Brand เป็น **SignalWorks Studio** โดยยังคงใช้ Analysis Engine baseline **V4.4.5.2026** เดิม และยังรองรับไฟล์ Preset รุ่นก่อนเพื่อให้ย้ายมาใช้งานต่อได้โดยไม่ต้องสร้าง Preset ใหม่
 
 ---
 
 ## 🇬🇧 English
 
-### What is Python-DataPEA?
+### What is SignalWorks Studio?
 
-**Python-DataPEA** is a portable, browser-based engineering data analysis tool designed for **CSV log files** from testing, validation, qualification, laboratory, environmental, automotive, and general engineering workflows.
+**SignalWorks Studio** is a portable, browser-based engineering data analysis tool designed for **CSV log files** from testing, validation, qualification, laboratory, environmental, automotive, and general engineering workflows.
 
-Instead of manually preparing graphs in spreadsheet software every time, DataPEA provides a repeatable workflow for loading CSV files, selecting signals, configuring axes, inspecting data, adding engineering limits and comments, analyzing temperature cycles, and exporting professional reports.
+Instead of manually preparing graphs in spreadsheet software every time, SignalWorks Studio provides a repeatable workflow for loading CSV files, selecting signals, configuring axes, inspecting data, adding engineering limits and comments, analyzing temperature cycles, and exporting professional reports.
 
 The current baseline is **V4.4.5.2026**, using **TCP port 8800** by default.
 
-### ✨ Why DataPEA?
+### ✨ Why SignalWorks Studio?
 
 - 🌐 **Browser-based UI** — no desktop GUI framework required.
 - 🔒 **Local / LAN operation** — no cloud dependency for normal use.
@@ -68,15 +76,15 @@ The current baseline is **V4.4.5.2026**, using **TCP port 8800** by default.
 
 ## 🇹🇭 ภาษาไทย
 
-### Python-DataPEA คืออะไร?
+### SignalWorks Studio คืออะไร?
 
-**Python-DataPEA** คือเครื่องมือสำหรับ **พล็อต วิเคราะห์ และประเมินข้อมูล CSV ผ่าน Web Browser** โดยออกแบบมาให้เหมาะกับงาน Engineering เช่นงาน **Test, Validation, Qualification, Laboratory, Environmental Test และ Automotive Test**
+**SignalWorks Studio** คือเครื่องมือสำหรับ **พล็อต วิเคราะห์ และประเมินข้อมูล CSV ผ่าน Web Browser** โดยออกแบบมาให้เหมาะกับงาน Engineering เช่นงาน **Test, Validation, Qualification, Laboratory, Environmental Test และ Automotive Test**
 
 จุดประสงค์หลักคือช่วยลดขั้นตอนการนำข้อมูลจาก Logger ไปสร้างกราฟด้วยโปรแกรม Spreadsheet ซ้ำ ๆ ทุกครั้ง ผู้ใช้สามารถโหลดไฟล์ CSV เลือก Signal จัดแกนกราฟ วิเคราะห์ช่วงข้อมูล ใส่ Limit/Comment วิเคราะห์ Cycle และ Export Report ได้ภายในเครื่องมือเดียว
 
 Baseline ปัจจุบันคือ **V4.4.5.2026** และใช้ **TCP Port 8800** เป็นค่าเริ่มต้น
 
-### ✨ จุดเด่นของ DataPEA
+### ✨ จุดเด่นของ SignalWorks Studio
 
 - 🌐 **ใช้งานผ่าน Web Browser** — ไม่ต้องพึ่ง Desktop GUI
 - 🔒 **ทำงานแบบ Local / LAN** — การใช้งานปกติไม่จำเป็นต้องส่งข้อมูลขึ้น Cloud
@@ -114,9 +122,9 @@ Baseline ปัจจุบันคือ **V4.4.5.2026** และใช้ **
 
 ## 📈 Interactive Plotting / การใช้งานกราฟ
 
-DataPEA uses an **offline Plotly-based interactive graph** served by the Python WebServer.
+SignalWorks Studio uses an **offline Plotly-based interactive graph** served by the Python WebServer.
 
-DataPEA ใช้กราฟ Interactive จาก Plotly ซึ่งให้บริการโดย Python WebServer และสามารถทำงานในระบบ Local/LAN ได้
+SignalWorks Studio ใช้กราฟ Interactive จาก Plotly ซึ่งให้บริการโดย Python WebServer และสามารถทำงานในระบบ Local/LAN ได้
 
 Supported interactions include:
 
@@ -163,9 +171,9 @@ Load Bound CSV ─────► Plot / Analyze / Export
       └──────────────► Download Bound CSV
 ```
 
-DataPEA keeps the first file's header/metadata and appends only data rows from subsequent compatible files.
+SignalWorks Studio keeps the first file's header/metadata and appends only data rows from subsequent compatible files.
 
-DataPEA จะเก็บ Header/Metadata จากไฟล์แรก และนำเฉพาะ Data Row ของไฟล์ถัดไปมาต่อกัน โดยตรวจสอบชื่อและลำดับ Column ก่อน Bind
+SignalWorks Studio จะเก็บ Header/Metadata จากไฟล์แรก และนำเฉพาะ Data Row ของไฟล์ถัดไปมาต่อกัน โดยตรวจสอบชื่อและลำดับ Column ก่อน Bind
 
 > [!NOTE]
 > Web browsers do not expose Windows **Creation Time** through the normal File API. Initial ordering therefore uses **Last Modified**, and the user can correct the sequence with drag-and-drop.
@@ -176,7 +184,7 @@ DataPEA จะเก็บ Header/Metadata จากไฟล์แรก แล
 
 ## 🧠 Smart CSV Header Detection
 
-DataPEA can automatically locate a CSV header using common first-column markers:
+SignalWorks Studio can automatically locate a CSV header using common first-column markers:
 
 - `Timestamp`
 - `Date&Time`
@@ -212,7 +220,7 @@ Statistics can follow the Cursor A↔B interval or the current zoom range.
 
 ## 🚧 Engineering Annotation & Limits
 
-DataPEA supports engineering markup directly on the graph:
+SignalWorks Studio supports engineering markup directly on the graph:
 
 - 🔴 Reference / Limit lines
 - 🟢 Acceptance / Tolerance range bands
@@ -253,7 +261,7 @@ Thermal Shock mode uses dominant plateau detection so short overshoot peaks do n
 
 ## 📄 Export & Reporting / การ Export Report
 
-DataPEA can export:
+SignalWorks Studio can export:
 
 - 🖼️ **PNG** plot image
 - 📑 **Custom Wide PDF** — 1200 × 650 pt per report page
@@ -271,7 +279,7 @@ Report pages can be selected before export.
 
 ## 🧩 Preset System
 
-A DataPEA `.preset` file can store reusable plotting configuration such as:
+A SignalWorks Studio `.preset` file can store reusable plotting configuration such as:
 
 - Selected signals
 - Primary / Secondary axis assignment
@@ -290,7 +298,7 @@ A DataPEA `.preset` file can store reusable plotting configuration such as:
 
 The Web UI provides a compact **Light / Dark toggle**.
 
-When a new browser session opens, DataPEA automatically starts from the Windows/browser preferred theme. If the user changes Light/Dark manually, that choice is kept for the current browser session.
+When a new browser session opens, SignalWorks Studio automatically starts from the Windows/browser preferred theme. If the user changes Light/Dark manually, that choice is kept for the current browser session.
 
 เมื่อเปิด Browser Session ใหม่ ระบบจะเริ่มต้นตาม Theme ของ Windows/Browser อัตโนมัติ จากนั้นผู้ใช้สามารถสลับ Light/Dark ได้จาก Toggle
 
@@ -323,7 +331,7 @@ When a new browser session opens, DataPEA automatically starts from the Windows/
 - Web browser
 - Internet connection is needed only when installing Python libraries for the first time
 
-หลังติดตั้ง Library แล้ว การใช้งาน DataPEA ปกติสามารถทำงานแบบ Local/LAN ได้โดยไม่ต้องพึ่ง Cloud
+หลังติดตั้ง Library แล้ว การใช้งาน SignalWorks Studio ปกติสามารถทำงานแบบ Local/LAN ได้โดยไม่ต้องพึ่ง Cloud
 
 ### 2. Install Python libraries / ติดตั้ง Library
 
@@ -376,12 +384,12 @@ http://192.168.1.100:8800
 If Windows Firewall blocks the connection, run once as Administrator:
 
 ```text
-Launcher\LAN_Setup\Allow_GraphPlot_Port_8800_Firewall.bat
+Launcher\LAN_Setup\Allow_SignalWorks_Studio_Port_8800_Firewall.bat
 ```
 
 ### 5. Dedicated Server mode
 
-For a PC that should keep DataPEA running without opening a browser on the server:
+For a PC that should keep SignalWorks Studio running without opening a browser on the server:
 
 ```text
 Launcher\Server\Start_Server_LAN.bat
@@ -394,19 +402,19 @@ Launcher\Server\Start_Server_LAN.bat
 ### Local
 
 ```bash
-python Graphplot_webserv_v4_4_5.py --port 8800
+python SignalWorks_Studio_webserv_v4_4_5.py --port 8800
 ```
 
 ### LAN
 
 ```bash
-python Graphplot_webserv_v4_4_5.py --lan --port 8800
+python SignalWorks_Studio_webserv_v4_4_5.py --lan --port 8800
 ```
 
 ### Dedicated LAN Server
 
 ```bash
-python Graphplot_webserv_v4_4_5.py --lan --port 8800 --no-browser --no-auto-shutdown
+python SignalWorks_Studio_webserv_v4_4_5.py --lan --port 8800 --no-browser --no-auto-shutdown
 ```
 
 ---
@@ -414,10 +422,10 @@ python Graphplot_webserv_v4_4_5.py --lan --port 8800 --no-browser --no-auto-shut
 ## 🗂️ Repository Structure
 
 ```text
-Python-DataPEA/
+Python-SignalWorks-Studio/
 │
-├── Graphplot_webserv_v4_4_5.py       # Main application / โปรแกรมหลัก
-├── launcher_helper.py                 # Windows launcher helper
+├── SignalWorks_Studio_webserv_v4_4_5.py       # Main application / โปรแกรมหลัก
+├── signalworks_studio_launcher.py                 # Windows launcher helper
 ├── lib_install.bat                    # Library installer
 ├── requirements.txt                   # Python dependencies
 ├── README.md                          # Project documentation
@@ -481,21 +489,21 @@ Launcher\Debug\Debug_LAN.bat
 
 ## 🔗 About the Web Link / เรื่องลิงก์ไปยังเว็บจริง
 
-DataPEA is a **FastAPI server application**, not a static HTML-only website. Therefore the complete application cannot be hosted directly by GitHub Pages without a running Python backend.
+SignalWorks Studio is a **FastAPI server application**, not a static HTML-only website. Therefore the complete application cannot be hosted directly by GitHub Pages without a running Python backend.
 
-DataPEA เป็น Web Application ที่ต้องมี Python/FastAPI Server ทำงานอยู่ จึงไม่สามารถนำตัวโปรแกรมทั้งหมดไปเปิดบน GitHub Pages แบบ Static Website ได้โดยตรง
+SignalWorks Studio เป็น Web Application ที่ต้องมี Python/FastAPI Server ทำงานอยู่ จึงไม่สามารถนำตัวโปรแกรมทั้งหมดไปเปิดบน GitHub Pages แบบ Static Website ได้โดยตรง
 
 ### Current links
 
 | Link | Purpose |
 |---|---|
-| [🌐 Open DataPEA Local](http://127.0.0.1:8800) | Opens DataPEA running on the same PC |
-| `http://<SERVER-IP>:8800` | Opens a DataPEA server on your LAN |
+| [🌐 Open SignalWorks Studio Local](http://127.0.0.1:8800) | Opens SignalWorks Studio running on the same PC |
+| `http://<SERVER-IP>:8800` | Opens a SignalWorks Studio server on your LAN |
 | [📦 GitHub Repository](https://github.com/TOPTUBBY/Python-DataPEA) | Source code and documentation |
 
-If a public Internet demo is added in the future, the **OPEN DataPEA** badge can be changed to that public URL without changing the application itself.
+If a public Internet demo is added in the future, the **OPEN SignalWorks Studio** badge can be changed to that public URL without changing the application itself.
 
-หากภายหลังมี Public Server หรือ Domain จริง สามารถเปลี่ยนปลายทางของปุ่ม **OPEN DataPEA** ให้ชี้ไปยัง URL นั้นได้ทันที
+หากภายหลังมี Public Server หรือ Domain จริง สามารถเปลี่ยนปลายทางของปุ่ม **OPEN SignalWorks Studio** ให้ชี้ไปยัง URL นั้นได้ทันที
 
 ---
 
@@ -518,8 +526,8 @@ If a public Internet demo is added in the future, the **OPEN DataPEA** badge can
 ## ✅ Current Baseline
 
 ```text
-Repository  : Python-DataPEA
-Application : Graphplot_webserv_v4_4_5.py
+Repository  : SignalWorks Studio
+Application : SignalWorks_Studio_webserv_v4_4_5.py
 Version     : V4.4.5.2026
 Default Port: 8800
 Mode        : Local / LAN / Dedicated Server
@@ -537,18 +545,18 @@ Project development: **DET DQT EVSBG / Patiphan.Phak**
 
 ## ⚖️ License
 
-Python-DataPEA is released under the **MIT License**.
+SignalWorks Studio is released under the **MIT License**.
 
 You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the software, subject to the terms of the license.
 
-Python-DataPEA เผยแพร่ภายใต้ **MIT License** ซึ่งอนุญาตให้นำซอฟต์แวร์ไปใช้ คัดลอก แก้ไข รวม เผยแพร่ แจกจ่าย หรือพัฒนาต่อยอดได้ ภายใต้เงื่อนไขของ License
+SignalWorks Studio เผยแพร่ภายใต้ **MIT License** ซึ่งอนุญาตให้นำซอฟต์แวร์ไปใช้ คัดลอก แก้ไข รวม เผยแพร่ แจกจ่าย หรือพัฒนาต่อยอดได้ ภายใต้เงื่อนไขของ License
 
 📄 **[Read the full MIT License](./LICENSE)**
 
 ---
 
 <p align="center">
-  <strong>📊 Python-DataPEA</strong><br>
-  Plot · Evaluate · Analyze · Report<br>
-  พล็อต · ประเมิน · วิเคราะห์ · สร้างรายงาน
+  <strong>📊 SignalWorks Studio</strong><br>
+  Visualize · Evaluate · Analyze · Report<br>
+  แสดงผล · ประเมิน · วิเคราะห์ · สร้างรายงาน
 </p>

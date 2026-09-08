@@ -1,6 +1,6 @@
-GraphPlot WebServer V4.4.5 Validation
+SignalWorks Studio V4.4.5 Validation
 
-Main source: Graphplot_webserv_v4_4_5.py
+Main source: SignalWorks_Studio_webserv_v4_4_5.py
 Default port: 8800
 Python compile: PASS
 Embedded JavaScript syntax: PASS
@@ -10,3 +10,10 @@ Fresh browser session follows OS/browser theme: PASS
 Session-only manual override: PASS
 Full launcher package retained: PASS
 lib_install.bat retained: PASS
+
+Branding validation:
+- Product name: SignalWorks Studio
+- Web brand mark: inline signal-wave SVG
+- Browser title / health identity: SignalWorks Studio
+- Legacy preset formats remain import-compatible
+- Legacy GraphPlot server process detection retained for safe migration

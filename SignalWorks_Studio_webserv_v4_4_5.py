@@ -1,6 +1,6 @@
 ###################################################################################
-# Module:   Graphplot_webserv_v4_4_5.py
-# Category: Web-based Graph Plotting Tool
+# Module:   SignalWorks_Studio_webserv_v4_4_5.py
+# Category: Engineering Data Visualization & Analysis Studio
 # Version:  V4.4.5.2026
 #
 # Author: Patiphan Phakdeeburti
@@ -8,7 +8,7 @@
 #
 # Description
 # ------------------------------------------------------------------------------
-# Portable WebServer CSV Data Plotter. Nissan OBC defaults are now provided as an external .preset example.
+# SignalWorks Studio: portable engineering CSV visualization, evaluation, analysis and reporting WebServer.
 # Replaces Tkinter GUI with a browser-based interface while preserving:
 #   - Smart CSV header detection from Timestamp / Date&Time / Date / Time markers
 #   - Automatic timestamp parsing
@@ -30,7 +30,7 @@
 # UI        : Embedded HTML/CSS/JavaScript + locally served Plotly.js (no CDN)
 # Default   : localhost only (127.0.0.1)
 # Port      : 8800
-# LAN mode  : python Graphplot_webserv_v4_4_5.py --lan
+# LAN mode  : python SignalWorks_Studio_webserv_v4_4_5.py --lan
 #
 # Changelog
 # ------------------------------------------------------------------------------
@@ -294,9 +294,10 @@ APP_VERSION = "V4.4.5.2026"
 WIDE_REPORT_WIDTH_PT = 1200
 WIDE_REPORT_HEIGHT_PT = 650
 WIDE_REPORT_FIGSIZE_IN = (WIDE_REPORT_WIDTH_PT / 72.0, WIDE_REPORT_HEIGHT_PT / 72.0)
-APP_TITLE = "CSV Data Plotter · Data Evaluation · Cycle Analysis"
+APP_TITLE = "SignalWorks Studio"
+APP_TAGLINE = "Engineering Data Visualization · Evaluation · Analysis · Reporting"
 DEFAULT_PORT = 8800
-SESSION_COOKIE = "nisobc_plotter_sid"
+SESSION_COOKIE = "signalworks_studio_sid"
 SESSION_TTL_SECONDS = 12 * 60 * 60
 
 # WebServer lifecycle management (V4.2.4)
@@ -882,7 +883,7 @@ def normalize_preset_payload(payload: object) -> dict:
     if not isinstance(payload, dict):
         raise ValueError("Preset root must be a JSON object.")
     fmt = str(payload.get("format", ""))
-    if fmt not in ("GraphPlotSignalPreset", "CSVDataPlotterPreset"):
+    if fmt not in ("SignalWorksStudioPreset", "GraphPlotSignalPreset", "CSVDataPlotterPreset"):
         raise ValueError("Unsupported preset format.")
     version = int(payload.get("format_version", 1))
     if version != 1:
@@ -1009,7 +1010,7 @@ def build_preset_payload_from_state(state: BrowserSession, preset_name: Optional
         })
 
     return {
-        "format": "GraphPlotSignalPreset",
+        "format": "SignalWorksStudioPreset",
         "format_version": 1,
         "name": preset_name or state.preset_name or "Signal Preset",
         "created_by": APP_TITLE,
@@ -1039,7 +1040,7 @@ def build_builtin_nissan_preset() -> dict:
             "signals": signals,
         })
     return {
-        "format": "GraphPlotSignalPreset",
+        "format": "SignalWorksStudioPreset",
         "format_version": 1,
         "name": "Nissan OBC Default",
         "created_by": APP_TITLE,
@@ -1401,7 +1402,7 @@ def load_csv_payload_into_state(
     filename: str,
     source_files: Optional[List[str]] = None,
 ) -> None:
-    """Load one ordinary or already-bound CSV into the normal GraphPlot workflow."""
+    """Load one ordinary or already-bound CSV into the normal SignalWorks Studio workflow."""
     (
         df, timestamp_col_name, parsed_info, numeric_cols, total_rows,
         header_row_index, header_detection, header_marker, delimiter
@@ -2512,8 +2513,8 @@ def build_interactive_figure(state: BrowserSession, tab_id: int):
         shapes=engineering_shapes,
         annotations=engineering_annotations,
         meta={
-            "graphplot_shape_map": engineering_shape_map,
-            "graphplot_annotation_map": engineering_annotation_map,
+            "signalworks_shape_map": engineering_shape_map,
+            "signalworks_annotation_map": engineering_annotation_map,
         },
         uirevision=f"tab-{tab_id}-rev-{ts.revision}",
     )
@@ -3032,13 +3033,18 @@ form { margin:0; }
 }
 .brand { display:flex; align-items:center; gap:12px; min-width:250px; flex:0 0 auto; }
 .brand-mark {
-    width: 34px; height: 34px; border-radius: 9px;
+    width: 38px; height: 38px; border-radius: 10px;
     display: grid; place-items: center;
-    background: #edf5fb; color: var(--accent); font-weight: 800; font-size: 15px;
-    border: 1px solid #d7e8f5;
+    background: linear-gradient(145deg, #eaf5fc, #f7fbfe);
+    color: var(--accent);
+    border: 1px solid #cfe5f4;
+    box-shadow: 0 1px 2px rgba(31,111,162,.10);
 }
-.brand h1 { margin: 0; font-size: 16px; line-height: 1.25; font-weight: 650; letter-spacing: -.01em; }
-.brand .version { margin-top: 2px; font-size: 11px; color: var(--muted); }
+.brand-mark svg { width: 27px; height: 27px; overflow: visible; }
+.brand-mark .signal-wave { fill:none; stroke:currentColor; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; }
+.brand h1 { margin: 0; font-size: 17px; line-height: 1.2; font-weight: 720; letter-spacing: -.015em; }
+.brand-studio { color: var(--accent); font-weight: 760; }
+.brand .version { margin-top: 3px; font-size: 10.5px; color: var(--muted); letter-spacing:.005em; }
 .header-tools {
     display:flex; align-items:center; justify-content:flex-end; gap:8px; flex-wrap:nowrap;
     min-width:0; white-space:nowrap;
@@ -3364,7 +3370,7 @@ html[data-theme="dark"] {
     --shadow:0 1px 2px rgba(0,0,0,.32),0 1px 4px rgba(0,0,0,.22);
 }
 html[data-theme="dark"] .app-header { background:rgba(17,20,26,.96); }
-html[data-theme="dark"] .brand-mark { background:#16283a; border-color:#29445d; color:#75bdec; }
+html[data-theme="dark"] .brand-mark { background:linear-gradient(145deg,#142638,#192f44); border-color:#29445d; color:#75bdec; box-shadow:none; }
 html[data-theme="dark"] input[type="text"],
 html[data-theme="dark"] input[type="search"],
 html[data-theme="dark"] input[type="number"],
@@ -3575,7 +3581,7 @@ const ACTIVE_TAB = __ACTIVE_TAB__;
 const ACTIVE_REVISION = __REVISION__;
 const EXPORT_BASE = __EXPORT_BASE_JSON__;
 const ACTIVE_PRESET_NAME = __PRESET_NAME_JSON__;
-const THEME_SESSION_KEY = 'graphplot_theme_session_mode';
+const THEME_SESSION_KEY = 'signalworks_studio_theme_session_mode';
 let interactiveOriginalLayout = null;
 
 // V4.4.5 multi-file CSV selection/binding state.
@@ -3994,7 +4000,7 @@ let engineeringShapeMap = [];
 let engineeringAnnotationMap = [];
 let annotationDragSyncTimer = null;
 let annotationRelayoutGuard = false;
-const SIDEBAR_STATE_PREFIX = `graphplot_sidebar_tab_${ACTIVE_TAB}_`;
+const SIDEBAR_STATE_PREFIX = `signalworks_studio_sidebar_tab_${ACTIVE_TAB}_`;
 
 function plotDivEl() { return document.getElementById('interactivePlot'); }
 
@@ -4383,7 +4389,7 @@ let exportDialogContext = null;
 
 function ensureExtension(filename, extension) {
     let name = String(filename || '').trim();
-    if (!name) name = `GraphPlot${extension}`;
+    if (!name) name = `SignalWorksStudio${extension}`;
     if (!name.toLowerCase().endsWith(extension.toLowerCase())) name += extension;
     return name.replace(/[\\/:*?"<>|]+/g, '_');
 }
@@ -4400,7 +4406,7 @@ function openExportDialog(ctx) {
     const presetName = document.getElementById('exportPresetName');
     if (title) title.textContent = ctx.title || 'Export';
     if (help) help.textContent = ctx.help || 'Choose the output settings and file name.';
-    if (filename) filename.value = ctx.filename || `GraphPlot${ctx.extension || ''}`;
+    if (filename) filename.value = ctx.filename || `SignalWorksStudio${ctx.extension || ''}`;
     if (tabSection) tabSection.hidden = !ctx.showTabs;
     if (presetRow) presetRow.hidden = !ctx.showPresetName;
     if (presetName && ctx.showPresetName) presetName.value = ctx.presetName || ACTIVE_PRESET_NAME || 'Signal Preset';
@@ -4445,7 +4451,7 @@ function openPlotExportDialog(tabId) {
 }
 
 function filePickerType(mime, extension) {
-    const description = extension === '.pdf' ? 'PDF document' : extension === '.docx' ? 'Word document' : extension === '.png' ? 'PNG image' : extension === '.csv' ? 'CSV file' : extension === '.preset' ? 'GraphPlot preset' : 'File';
+    const description = extension === '.pdf' ? 'PDF document' : extension === '.docx' ? 'Word document' : extension === '.png' ? 'PNG image' : extension === '.csv' ? 'CSV file' : extension === '.preset' ? 'SignalWorks Studio preset' : 'File';
     return [{description, accept:{[mime || 'application/octet-stream']:[extension]}}];
 }
 
@@ -4566,8 +4572,8 @@ async function loadInteractivePlot() {
         await Plotly.newPlot(plotDiv, fig.data || [], fig.layout || {}, config);
         engineeringBaseShapes = JSON.parse(JSON.stringify(fig.layout?.shapes || []));
         engineeringBaseAnnotations = JSON.parse(JSON.stringify(fig.layout?.annotations || []));
-        engineeringShapeMap = JSON.parse(JSON.stringify(fig.layout?.meta?.graphplot_shape_map || []));
-        engineeringAnnotationMap = JSON.parse(JSON.stringify(fig.layout?.meta?.graphplot_annotation_map || []));
+        engineeringShapeMap = JSON.parse(JSON.stringify(fig.layout?.meta?.signalworks_shape_map || fig.layout?.meta?.graphplot_shape_map || []));
+        engineeringAnnotationMap = JSON.parse(JSON.stringify(fig.layout?.meta?.signalworks_annotation_map || fig.layout?.meta?.graphplot_annotation_map || []));
         await Plotly.relayout(plotDiv, plotThemeUpdate());
         requestAnimationFrame(() => {
             try { Plotly.Plots.resize(plotDiv); } catch (_) {}
@@ -4836,7 +4842,7 @@ function refreshAutoColorForRow(select) {
     }
 }
 const CLIENT_ID = (() => {
-    const key = 'graphplot_client_id';
+    const key = 'signalworks_studio_client_id';
     try {
         let id = sessionStorage.getItem(key);
         if (!id) {
@@ -4856,7 +4862,7 @@ async function sendServerHeartbeat() {
     try {
         await fetch('/api/heartbeat', {
             method: 'POST',
-            headers: {'X-GraphPlot-Client': CLIENT_ID},
+            headers: {'X-SignalWorks-Studio-Client': CLIENT_ID},
             cache: 'no-store',
             keepalive: true
         });
@@ -4895,7 +4901,7 @@ window.addEventListener('pagehide', () => { saveSidebarUiState(); releaseServerC
 def render_page(state: BrowserSession, active_tab: int) -> str:
     active_tab = max(0, min(active_tab, len(TAB_PRESETS) - 1))
     has_data = state.df is not None
-    export_base = re.sub(r"[^A-Za-z0-9_-]+", "_", os.path.splitext(state.filename or "GraphPlot")[0]).strip("_") or "GraphPlot"
+    export_base = re.sub(r"[^A-Za-z0-9_-]+", "_", os.path.splitext(state.filename or "SignalWorksStudio")[0]).strip("_") or "GraphPlot"
     export_tab_options = "".join(
         f'<label class="export-tab-option"><input type="checkbox" value="{idx}" checked><span><strong>Page {idx + 1}</strong><small>{esc(preset.title)}</small></span></label>'
         for idx, preset in enumerate(TAB_PRESETS)
@@ -4956,7 +4962,7 @@ def render_page(state: BrowserSession, active_tab: int) -> str:
     <title>{esc(APP_TITLE)} {esc(APP_VERSION)}</title>
     <script>
     (() => {{
-        const key='graphplot_theme_mode';
+        const key='signalworks_studio_theme_mode';
         let mode='system';
         try {{ mode=localStorage.getItem(key)||'system'; }} catch (_) {{}}
         const resolved=(mode==='dark'||mode==='light') ? mode : ((window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light');
@@ -4970,10 +4976,14 @@ def render_page(state: BrowserSession, active_tab: int) -> str:
     <header class="app-header">
         <div class="topbar">
             <div class="brand">
-                <div class="brand-mark">PEA</div>
+                <div class="brand-mark" aria-label="SignalWorks Studio brand mark" title="SignalWorks Studio">
+                    <svg viewBox="0 0 36 36" aria-hidden="true" focusable="false">
+                        <path class="signal-wave" d="M3 19h6l3-8 4 16 4-20 4 12h9" />
+                    </svg>
+                </div>
                 <div>
-                    <h1>{esc(APP_TITLE)}</h1>
-                    <div class="version">DELTA ELECTRONICS THAILAND PCL. · DQT EVSBG · DET9-RD1 · WebServer {esc(APP_VERSION)}</div>
+                    <h1>SignalWorks <span class="brand-studio">Studio</span></h1>
+                    <div class="version">{esc(APP_TAGLINE)} · WebServer {esc(APP_VERSION)}</div>
                 </div>
             </div>
             <div class="header-tools">
@@ -5070,7 +5080,7 @@ def render_page(state: BrowserSession, active_tab: int) -> str:
             <div class="modal-actions"><button class="btn" type="button" onclick="closeExportModal()">Cancel</button><button id="exportConfirmBtn" class="btn primary" type="button" onclick="confirmExportDialog()">Save As…</button></div>
           </div>
         </div>
-        <div class="footer">CSV Data Plotter · Data Evaluation · Cycle Analysis {esc(APP_VERSION)}</div>
+        <div class="footer">SignalWorks Studio · Visualize · Evaluate · Analyze · Report · {esc(APP_VERSION)}</div>
     </div>
 
     <script src="/static/plotly.min.js"></script>
@@ -5181,14 +5191,14 @@ async def server_health():
 
 @app.post("/api/heartbeat")
 async def browser_heartbeat(request: Request):
-    client_id = request.headers.get("X-GraphPlot-Client") or request.query_params.get("client") or ""
+    client_id = request.headers.get("X-SignalWorks-Studio-Client") or request.headers.get("X-GraphPlot-Client") or request.query_params.get("client") or ""
     register_browser_heartbeat(client_id)
     return {"ok": True}
 
 
 @app.post("/api/client-close")
 async def browser_client_close(request: Request):
-    client_id = request.headers.get("X-GraphPlot-Client") or request.query_params.get("client") or ""
+    client_id = request.headers.get("X-SignalWorks-Studio-Client") or request.headers.get("X-GraphPlot-Client") or request.query_params.get("client") or ""
     release_browser_client(client_id)
     return {"ok": True}
 
@@ -5968,7 +5978,7 @@ def open_browser_later(url: str, delay: float = 1.2) -> None:
 def main() -> None:
     global _managed_uvicorn_server, _auto_shutdown_enabled, _idle_shutdown_seconds
 
-    parser = argparse.ArgumentParser(description="CSV Data Plotter WebServer")
+    parser = argparse.ArgumentParser(description="SignalWorks Studio Engineering Data WebServer")
     parser.add_argument("--lan", action="store_true", help="Allow other devices on the same LAN to access the WebServer")
     parser.add_argument("--port", type=int, default=DEFAULT_PORT, help=f"WebServer port (default: {DEFAULT_PORT})")
     parser.add_argument("--no-browser", action="store_true", help="Do not automatically open the local web browser")
@@ -6032,7 +6042,7 @@ def main() -> None:
     )
     server = uvicorn.Server(config)
     _managed_uvicorn_server = server
-    threading.Thread(target=lifecycle_watchdog, daemon=True, name="GraphPlotLifecycleWatchdog").start()
+    threading.Thread(target=lifecycle_watchdog, daemon=True, name="SignalWorksStudioLifecycleWatchdog").start()
 
     try:
         server.run()

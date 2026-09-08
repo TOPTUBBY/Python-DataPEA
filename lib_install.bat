@@ -1,9 +1,9 @@
 @echo off
 setlocal EnableExtensions
-title GraphPlot WebServer V4.4.5 - Library Installer
+title SignalWorks Studio V4.4.5 - Library Installer
 
 echo ================================================================
-echo   GraphPlot WebServer V4.4.5
+echo   SignalWorks Studio V4.4.5
 echo   Python Library Installer
 echo ================================================================
 echo.
@@ -47,7 +47,7 @@ if errorlevel 1 goto :failed
 
 echo.
 echo ================================================================
-echo [2/3] Installing GraphPlot V4.4.5 required libraries...
+echo [2/3] Installing SignalWorks Studio V4.4.5 required libraries...
 echo ================================================================
 
 REM WebServer
@@ -72,7 +72,7 @@ echo.
 echo ================================================================
 echo [3/3] Verifying installed libraries...
 echo ================================================================
-%PY_CMD% -c "import fastapi, uvicorn, multipart, pandas, numpy, matplotlib, plotly, docx, PIL; print('All GraphPlot V4.4.5 libraries imported successfully.')"
+%PY_CMD% -c "import fastapi, uvicorn, multipart, pandas, numpy, matplotlib, plotly, docx, PIL; print('All SignalWorks Studio V4.4.5 libraries imported successfully.')"
 if errorlevel 1 goto :verify_failed
 
 echo.
@@ -91,7 +91,7 @@ echo   - Plotly
 echo   - python-docx
 echo   - Pillow
 echo.
-echo GraphPlot WebServer V4.4.5 is ready to run.
+echo SignalWorks Studio V4.4.5 is ready to run.
 echo.
 pause
 exit /b 0

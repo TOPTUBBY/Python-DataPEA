@@ -1,15 +1,15 @@
 @echo off
 setlocal EnableExtensions
-title GraphPlot V4.4.5 - Dedicated LAN Server
+title SignalWorks Studio V4.4.5 - Dedicated LAN Server
 
-set "APP_FILE=Graphplot_webserv_v4_4_5.py"
+set "APP_FILE=SignalWorks_Studio_webserv_v4_4_5.py"
 set "PORT=8800"
 
 cd /d "%~dp0..\.."
 
 echo.
 echo ==================================================================
-echo   GraphPlot V4.4.5 - Dedicated LAN Server
+echo   SignalWorks Studio V4.4.5 - Dedicated LAN Server
 echo ==================================================================
 echo   Port          : %PORT%
 echo   Server browser: OFF
@@ -30,7 +30,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo Keep this window open while GraphPlot is in service.
+echo Keep this window open while SignalWorks Studio is in service.
 echo Press CTRL+C to stop the server.
 echo.
 
@@ -38,6 +38,6 @@ python "%APP_FILE%" --lan --port %PORT% --no-browser --no-auto-shutdown
 
 set "RC=%ERRORLEVEL%"
 echo.
-echo GraphPlot Server stopped. Exit code: %RC%
+echo SignalWorks Studio Server stopped. Exit code: %RC%
 pause
 exit /b %RC%

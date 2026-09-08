@@ -1,9 +1,9 @@
 @echo off
 setlocal EnableExtensions
-title GraphPlot V4.4.5 - LAN Diagnostics
+title SignalWorks Studio V4.4.5 - LAN Diagnostics
 cd /d "%~dp0..\.."
 
-python launcher_helper.py --mode lan-info --port 8800
+python signalworks_studio_launcher.py --mode lan-info --port 8800
 
 echo.
 echo Windows network profile:

@@ -1,6 +1,23 @@
-# GraphPlot WebServer Version History
+# SignalWorks Studio Version History
 
-> **Current V4.4.5 package configuration:** main source `Graphplot_webserv_v4_4_5.py`, default Local/LAN port **8800**. Older port numbers appearing in historical entries describe the configuration used by those earlier releases.
+## Branding refresh — 2026-09-08
+
+The V4.4.5 production baseline is now branded **SignalWorks Studio**. The application core, CSV binding logic, plotting behavior, Cycle Analysis and report workflow remain on the validated V4.4.5 code line.
+
+- Product name changed to **SignalWorks Studio**.
+- Main source renamed to `SignalWorks_Studio_webserv_v4_4_5.py`.
+- Launcher helper renamed to `signalworks_studio_launcher.py`.
+- Added a compact signal-wave brand mark to the Web UI header.
+- Browser title, footer, launchers, installer, firewall rule and export defaults use the new brand.
+- New presets export as `SignalWorksStudioPreset`.
+- Legacy `GraphPlotSignalPreset` and `CSVDataPlotterPreset` V1 files remain import-compatible.
+- Legacy GraphPlot V4 process detection is retained in the launcher for safe migration.
+
+> This is a branding/package refresh of V4.4.5, not a new analysis-engine version. Historical entries below keep the names used by those releases.
+
+---
+
+> **Current V4.4.5 package configuration:** main source `SignalWorks_Studio_webserv_v4_4_5.py`, default Local/LAN port **8800**. Older port numbers appearing in historical entries describe the configuration used by those earlier releases.
 
 
 ## V4.4.5 — 2026-09-03

@@ -1,8 +1,8 @@
 @echo off
 setlocal EnableExtensions
-title GraphPlot V4.4.5 - Port 8800 Inspection
+title SignalWorks Studio V4.4.5 - Port 8800 Inspection
 cd /d "%~dp0..\.."
 
-python launcher_helper.py --mode inspect --port 8800
+python signalworks_studio_launcher.py --mode inspect --port 8800
 echo.
 pause

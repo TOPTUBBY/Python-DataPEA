@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-"""GraphPlot V4.4.5 Windows launcher helper.
+"""SignalWorks Studio V4.4.5 Windows launcher helper.
 
 Goals
 -----
 * Start the same Python interpreter that successfully ran this helper.
 * Reuse an already-running V4.4.3 server instead of starting a duplicate.
-* Detect an older/stale GraphPlot process that owns port 8800.
-* Ask before stopping a stale GraphPlot process.
-* Never force-kill an unknown/non-GraphPlot process.
+* Detect an older/stale SignalWorks Studio process that owns port 8800.
+* Ask before stopping a stale SignalWorks Studio process.
+* Never force-kill an unknown/non-SignalWorks Studio process.
 * Keep Stable / Hidden / Debug launch behavior consistent.
 """
 from __future__ import annotations
@@ -27,11 +27,11 @@ import webbrowser
 from pathlib import Path
 from typing import Any
 
-APP_FILENAME = "Graphplot_webserv_v4_4_5.py"
+APP_FILENAME = "SignalWorks_Studio_webserv_v4_4_5.py"
 EXPECTED_VERSION = "V4.4.5.2026"
-APP_TITLE_PREFIX = "CSV Data Plotter"
+APP_TITLE_PREFIX = "SignalWorks Studio"
 DEFAULT_PORT = 8800
-LOG_FILENAME = "GraphPlot_launcher.log"
+LOG_FILENAME = "SignalWorks_Studio_launcher.log"
 
 
 def root_dir() -> Path:
@@ -101,11 +101,11 @@ def browser_url(port: int, lan: bool = False) -> str:
 
 
 def get_health(port: int, timeout: float = 1.2) -> dict[str, Any] | None:
-    """Return a GraphPlot V4 health payload.
+    """Return a SignalWorks Studio V4 health payload.
 
     The launcher intentionally does NOT require an exact APP_TITLE match. The Web UI
     title is presentation text and may be expanded (for example
-    "CSV Data Plotter · Data Evaluation · Cycle Analysis") without changing the
+    "SignalWorks Studio · Engineering Data Visualization · Evaluation · Analysis · Reporting") without changing the
     server identity. Older launcher versions rejected that perfectly healthy
     response and eventually killed the server after the startup timeout.
     """
@@ -120,7 +120,7 @@ def get_health(port: int, timeout: float = 1.2) -> dict[str, Any] | None:
         app_name = str(payload.get("app") or "").strip()
         version = str(payload.get("version") or "").strip().upper()
 
-        # Identify GraphPlot by a stable product prefix + V4 version rather than
+        # Identify SignalWorks Studio by a stable product prefix + V4 version rather than
         # by the full display title. This remains strict enough not to accept an
         # unrelated service that merely happens to expose /api/health.
         if ok and app_name.startswith(APP_TITLE_PREFIX) and version.startswith("V4."):
@@ -167,7 +167,7 @@ def wait_for_startup_health(port: int, process: subprocess.Popen, *, hidden: boo
         return None
 
     message = (
-        "GraphPlot is still initializing. First launch may take longer while "
+        "SignalWorks Studio is still initializing. First launch may take longer while "
         "Matplotlib prepares its font cache. Waiting up to 105 seconds more..."
     )
     log_line(message)
@@ -383,7 +383,7 @@ def get_process_info_windows(pid: int) -> dict[str, Any]:
         pass
 
     # Fallback: tasklist can at least identify the executable name, although it
-    # cannot safely prove that a python.exe belongs to GraphPlot.
+    # cannot safely prove that a python.exe belongs to SignalWorks Studio.
     try:
         result = run_quiet(
             ["tasklist", "/FI", f"PID eq {int(pid)}", "/FO", "CSV", "/NH"],
@@ -415,7 +415,7 @@ def get_process_info(pid: int) -> dict[str, Any]:
 
 
 def extract_graphplot_version(command_line: str) -> str:
-    m = re.search(r"graphplot[^\s\"]*web_(v4(?:[_\.]\d+)+)\.py", command_line, flags=re.I)
+    m = re.search(r"(?:signalworks[^\s\"]*web(?:serv)?|graphplot[^\s\"]*web(?:serv)?)[_-]?(v4(?:[_\.]\d+)+)\.py", command_line, flags=re.I)
     if not m:
         m = re.search(r"(v4(?:[_\.]\d+)+)", command_line, flags=re.I)
     if not m:
@@ -427,12 +427,15 @@ def is_graphplot_server_process(info: dict[str, Any]) -> bool:
     cmd = str(info.get("command_line") or "").lower()
     if not cmd:
         return False
-    # Deliberately strict: only a Python command line that names the GraphPlot
+    # Deliberately strict: only a Python command line that names the SignalWorks Studio
     # WebServer script is eligible for forced termination.
     return (
-        "graphplot_nisobc_web_v4" in cmd
+        "signalworks_studio_webserv_v4" in cmd
+        or "signalworks-studio-webserv-v4" in cmd
+        or bool(re.search(r"signalworks[^\s\"]*web(?:serv)?[_-]?v4", cmd, flags=re.I))
+        or "graphplot_nisobc_web_v4" in cmd
         or "graphplot-nisobc-web-v4" in cmd
-        or bool(re.search(r"graphplot[^\s\"]*web[_-]?v4", cmd, flags=re.I))
+        or bool(re.search(r"graphplot[^\s\"]*web(?:serv)?[_-]?v4", cmd, flags=re.I))
     )
 
 
@@ -479,7 +482,7 @@ def ask_yes_no(message: str, hidden: bool = False) -> bool:
     log_line("PROMPT: " + message.replace("\n", " | "))
     if hidden and os.name == "nt":
         # MB_YESNO | MB_ICONWARNING | MB_SETFOREGROUND
-        result = message_box(message, "GraphPlot launcher", 0x00000004 | 0x00000030 | 0x00010000)
+        result = message_box(message, "SignalWorks Studio launcher", 0x00000004 | 0x00000030 | 0x00010000)
         return result == 6  # IDYES
     try:
         answer = input(message.rstrip() + "\nContinue? [Y/N]: ").strip().lower()
@@ -492,7 +495,7 @@ def show_error(message: str, hidden: bool = False) -> None:
     log_line("ERROR: " + message.replace("\n", " | "))
     if hidden and os.name == "nt":
         # MB_OK | MB_ICONERROR | MB_SETFOREGROUND
-        message_box(message, "GraphPlot launcher", 0x00000000 | 0x00000010 | 0x00010000)
+        message_box(message, "SignalWorks Studio launcher", 0x00000000 | 0x00000010 | 0x00010000)
     else:
         print(message)
 
@@ -500,7 +503,7 @@ def show_error(message: str, hidden: bool = False) -> None:
 def show_info(message: str, hidden: bool = False) -> None:
     log_line("INFO: " + message.replace("\n", " | "))
     if hidden and os.name == "nt":
-        message_box(message, "GraphPlot launcher", 0x00000000 | 0x00000040 | 0x00010000)
+        message_box(message, "SignalWorks Studio launcher", 0x00000000 | 0x00000040 | 0x00010000)
     else:
         print(message)
 
@@ -524,7 +527,7 @@ def stop_recognized_listener_processes(port: int, hidden: bool = False, ask: boo
     if unknown:
         details = "\n\n".join(process_summary(info) for info in infos)
         show_error(
-            f"Port {port} is occupied, and at least one listener cannot be proven to be GraphPlot.\n"
+            f"Port {port} is occupied, and at least one listener cannot be proven to be SignalWorks Studio.\n"
             "For safety, V4.4.3.1 will NOT kill it automatically.\n\n"
             f"Detected listener(s):\n{details}\n\n"
             "Close the application manually or choose another port.",
@@ -538,8 +541,8 @@ def stop_recognized_listener_processes(port: int, hidden: bool = False, ask: boo
 
     details = "\n\n".join(process_summary(info) for info in recognized)
     prompt = (
-        f"An older/stale GraphPlot server is holding port {port}:\n\n{details}\n\n"
-        f"Stop this GraphPlot process and start {EXPECTED_VERSION}?"
+        f"An older/stale SignalWorks Studio server is holding port {port}:\n\n{details}\n\n"
+        f"Stop this SignalWorks Studio process and start {EXPECTED_VERSION}?"
     )
     if ask and not ask_yes_no(prompt, hidden=hidden):
         show_info("Startup cancelled. The existing process was left untouched.", hidden)
@@ -550,13 +553,13 @@ def stop_recognized_listener_processes(port: int, hidden: bool = False, ask: boo
         pid = int(info.get("pid") or 0)
         if not terminate_pid_windows(pid):
             all_ok = False
-            log_line(f"Failed to taskkill GraphPlot PID {pid}")
+            log_line(f"Failed to taskkill SignalWorks Studio PID {pid}")
         else:
-            log_line(f"Killed stale GraphPlot PID {pid}")
+            log_line(f"Killed stale SignalWorks Studio PID {pid}")
 
     if not all_ok or not wait_for_port_release(port, timeout=8.0):
         show_error(
-            f"The stale GraphPlot process could not be stopped completely. Port {port} is still in use.",
+            f"The stale SignalWorks Studio process could not be stopped completely. Port {port} is still in use.",
             hidden,
         )
         return False
@@ -569,14 +572,14 @@ def replace_older_health_server(port: int, health: dict[str, Any], hidden: bool 
         return True
 
     prompt = (
-        f"GraphPlot {version} is already running on port {port}.\n\n"
+        f"SignalWorks Studio {version} is already running on port {port}.\n\n"
         f"Stop the older server cleanly and start {EXPECTED_VERSION}?"
     )
     if not ask_yes_no(prompt, hidden=hidden):
-        show_info("Startup cancelled. The existing GraphPlot server was left running.", hidden)
+        show_info("Startup cancelled. The existing SignalWorks Studio server was left running.", hidden)
         return False
 
-    log_line(f"Requesting clean shutdown of older healthy GraphPlot {version}")
+    log_line(f"Requesting clean shutdown of older healthy SignalWorks Studio {version}")
     if post_shutdown(port) and wait_for_port_release(port, timeout=8.0):
         return True
 
@@ -596,7 +599,7 @@ def prepare_port_for_start(port: int, hidden: bool = False, lan: bool = False) -
                 prompt = (
                     f"{EXPECTED_VERSION} is already running in Local-only mode on port {port}.\n\n"
                     "LAN mode requires the server to restart and bind to all network adapters. "
-                    "The current browser session/data will be cleared.\n\nRestart GraphPlot in LAN mode?"
+                    "The current browser session/data will be cleared.\n\nRestart SignalWorks Studio in LAN mode?"
                 )
                 if not ask_yes_no(prompt, hidden=hidden):
                     return "abort"
@@ -619,7 +622,7 @@ def prepare_port_for_start(port: int, hidden: bool = False, lan: bool = False) -
                 prompt = (
                     f"{EXPECTED_VERSION} is already running in Local-only mode on port {port}.\n\n"
                     "LAN mode requires the server to restart and bind to all network adapters. "
-                    "The current browser session/data will be cleared.\n\nRestart GraphPlot in LAN mode?"
+                    "The current browser session/data will be cleared.\n\nRestart SignalWorks Studio in LAN mode?"
                 )
                 if not ask_yes_no(prompt, hidden=hidden):
                     return "abort"
@@ -636,21 +639,21 @@ def prepare_port_for_start(port: int, hidden: bool = False, lan: bool = False) -
 # Start/stop/inspect commands
 # -----------------------------------------------------------------------------
 def inspect_port(port: int) -> int:
-    print(f"GraphPlot V4.4.3.2 - Port inspection ({port})")
+    print(f"SignalWorks Studio V4.4.5 - Port inspection ({port})")
     print("=" * 72)
     health = get_health(port)
     if health:
-        print(f"Health endpoint : GraphPlot {health.get('version', 'unknown')}")
+        print(f"Health endpoint : SignalWorks Studio {health.get('version', 'unknown')}")
         print(f"Active clients  : {health.get('active_clients', 'unknown')}")
     else:
-        print("Health endpoint : No GraphPlot /api/health response")
+        print("Health endpoint : No SignalWorks Studio /api/health response")
 
     print(f"TCP port open   : {'YES' if port_is_open(port) else 'NO'}")
     infos = listener_processes(port)
     if infos:
         print("\nListening process(es):")
         for info in infos:
-            kind = "GraphPlot" if is_graphplot_server_process(info) else "UNKNOWN / protected"
+            kind = "SignalWorks Studio" if is_graphplot_server_process(info) else "UNKNOWN / protected"
             print(f"\n[{kind}]\n{process_summary(info)}")
     elif port_is_open(port):
         print("\nThe port is open, but process ownership could not be resolved.")
@@ -663,14 +666,14 @@ def stop_server(port: int, hidden: bool = False) -> int:
     health = get_health(port)
     if health:
         version = str(health.get("version") or "unknown")
-        log_line(f"Stop requested for healthy GraphPlot {version}")
+        log_line(f"Stop requested for healthy SignalWorks Studio {version}")
         if post_shutdown(port):
             if wait_for_port_release(port, timeout=8.0):
-                show_info(f"GraphPlot {version} stopped and port {port} was released.", hidden)
+                show_info(f"SignalWorks Studio {version} stopped and port {port} was released.", hidden)
                 return 0
-        # Clean shutdown failed: fall back only when PID is proven GraphPlot.
+        # Clean shutdown failed: fall back only when PID is proven SignalWorks Studio.
         if stop_recognized_listener_processes(port, hidden=hidden, ask=True):
-            show_info(f"GraphPlot stopped and port {port} was released.", hidden)
+            show_info(f"SignalWorks Studio stopped and port {port} was released.", hidden)
             return 0
         return 2
 
@@ -679,7 +682,7 @@ def stop_server(port: int, hidden: bool = False) -> int:
         return 0
 
     if stop_recognized_listener_processes(port, hidden=hidden, ask=True):
-        show_info(f"Stale GraphPlot server stopped and port {port} was released.", hidden)
+        show_info(f"Stale SignalWorks Studio server stopped and port {port} was released.", hidden)
         return 0
     return 2
 
@@ -729,8 +732,8 @@ def start_server(mode: str, lan: bool, port: int) -> int:
                 )
                 stop_spawned_process(proc)
                 show_error(
-                    "GraphPlot failed to start after the extended startup wait. "
-                    "See GraphPlot_launcher.log for details.",
+                    "SignalWorks Studio failed to start after the extended startup wait. "
+                    "See SignalWorks_Studio_launcher.log for details.",
                     hidden=True,
                 )
                 return 4
@@ -738,12 +741,12 @@ def start_server(mode: str, lan: bool, port: int) -> int:
         return 0
 
     if mode == "stable":
-        print(f"Starting GraphPlot {EXPECTED_VERSION}...")
-        print("Close all GraphPlot browser tabs to stop the server automatically.")
+        print(f"Starting SignalWorks Studio {EXPECTED_VERSION}...")
+        print("Close all SignalWorks Studio browser tabs to stop the server automatically.")
         print("This Stable window closes automatically after the server exits.")
         print("First launch can take 30-120 seconds if Matplotlib builds/refreshes its font cache.\n")
     else:
-        print(f"Starting GraphPlot {EXPECTED_VERSION} in DEBUG mode...\n")
+        print(f"Starting SignalWorks Studio {EXPECTED_VERSION} in DEBUG mode...\n")
 
     log_line("Stable/debug command: " + " ".join(cmd))
     proc = subprocess.Popen(cmd, cwd=str(root_dir()))
@@ -779,7 +782,7 @@ def start_server(mode: str, lan: bool, port: int) -> int:
 
 def lan_info(port: int) -> int:
     lan_ip = get_lan_ip()
-    print(f"GraphPlot {EXPECTED_VERSION} - LAN diagnostics")
+    print(f"SignalWorks Studio {EXPECTED_VERSION} - LAN diagnostics")
     print("=" * 72)
     print(f"Detected LAN IP : {lan_ip}")
     print(f"LAN URL         : http://{lan_ip}:{port}/")
@@ -790,7 +793,7 @@ def lan_info(port: int) -> int:
         print(f"Bind address(es): {', '.join(hosts) if hosts else 'No listener detected'}")
         print(f"LAN-capable bind: {'YES' if port_is_lan_bound(port) else 'NO'}")
     health = get_health(port)
-    print(f"GraphPlot health: {health.get('version') if health else 'No response'}")
+    print(f"SignalWorks Studio health: {health.get('version') if health else 'No response'}")
     print()
     print("If LAN-capable bind is YES but another PC cannot connect, Windows Firewall")
     print("or the network profile is usually the next item to check.")
@@ -798,7 +801,7 @@ def lan_info(port: int) -> int:
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="GraphPlot V4.4.5 launcher helper")
+    parser = argparse.ArgumentParser(description="SignalWorks Studio V4.4.5 launcher helper")
     parser.add_argument(
         "--mode",
         choices=["stable", "hidden", "debug", "stop", "stop-hidden", "inspect", "lan-info"],

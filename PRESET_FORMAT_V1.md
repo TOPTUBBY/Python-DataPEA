@@ -1,4 +1,4 @@
-# GraphPlot `.preset` format v1
+# SignalWorks Studio `.preset` format v1
 
 A `.preset` file is UTF-8 JSON. It stores portable plotting and engineering-limit configuration. It does **not** contain CSV measurements or test-specific graph comments.
 
@@ -6,7 +6,7 @@ V4.4.0 extends format v1 with optional `reference_lines` and `range_bands`. Olde
 
 ```json
 {
-  "format": "GraphPlotSignalPreset",
+  "format": "SignalWorksStudioPreset",
   "format_version": 1,
   "name": "My Project Preset",
   "tabs": [
@@ -90,4 +90,9 @@ Graph comments are intentionally **not** part of `.preset` v1 export. Comments d
 
 ## Portability
 
-When imported, GraphPlot matches signal names against the current CSV. Missing signals are ignored for that dataset. Reference Lines and Range Bands do not depend on signal names, so they remain available across compatible projects/logs.
+When imported, SignalWorks Studio matches signal names against the current CSV. Missing signals are ignored for that dataset. Reference Lines and Range Bands do not depend on signal names, so they remain available across compatible projects/logs.
+
+
+## Backward compatibility
+
+SignalWorks Studio V4.4.5 imports the current `SignalWorksStudioPreset` format and also accepts legacy `GraphPlotSignalPreset` and `CSVDataPlotterPreset` V1 files. Existing presets therefore remain usable after the branding change.
